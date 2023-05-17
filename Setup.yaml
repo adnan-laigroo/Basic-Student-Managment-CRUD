@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+  sonarqube:
+    image: sonarqube 
+    container_name: sonarqube
+    restart: always
+    expose:
+      - 9000
+    ports:
+      - "9000:9000"
+    depends_on: 
+      -  sonar_db
+    networks:
+      - net
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://sonar_db:5432/sonar
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+
+  sonar_db:
+    image: postgres
+    container_name: postgresql
+    restart: always
+    networks:
+      - net
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'mukit'
+    restart: always
+    networks:
+      - net
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+networks:
+  net:
+    name: net
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+  mysql-db:
+
+

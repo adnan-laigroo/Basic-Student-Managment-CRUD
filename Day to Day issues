@@ -1,0 +1,23 @@
+Issue #1 : MySQL is not start because port 3306 is already in use.
+Solution : If your port 3306 is in use, then you have to kill the process which is using the port.
+    - Open CMD in administrative mode
+    - Run below command to search the process id :
+    "netstat -a -n -o | find "3306""
+    - After the result, copy the process id and run :
+    "taskkill /F /PID <process id>"
+
+
+Issue #2 : How to check if docker container is running or not?
+Solution : Run the below command to check your running containers :
+    "Docker ps"
+    
+Issue #3 : If any service is not running like Sonarqube, MySQL, Postgres.
+Solution : If your sonarqube is not running on localhost:9000, then follow the below steps:
+    - Check if docker is running or not, if is not running, then run below command :
+    For Sonarqube : 
+    "docker start sonarqube"
+    For Mysql :
+    "Docker start mysql"
+    For postgres :
+    "Docker start postgresql"
+    If still it is not running, reach out to your leads.

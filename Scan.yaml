@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  java:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:$PORT"
+    container_name: java
+    restart: always
+    networks:
+      - net
+    volumes:
+      - java-app:/app
+      
+networks:
+  net:
+    name: net
+
+volumes:
+  java-app:

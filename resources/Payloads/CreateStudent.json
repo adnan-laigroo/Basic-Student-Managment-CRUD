@@ -1,0 +1,11 @@
+{
+  "enrollmentId": "MAGIC0001",
+  "address": {
+    "city": "Noida",
+    "state": "U.P",
+    "pincode": "120001"
+  },
+  "name": "Abhishek Kumar",
+  "dob": "01/05/1990",
+  "branch": "Computer science and Engg"
+}

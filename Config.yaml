@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  Config-sonarqube:
+    image: ubuntu:latest
+    command:
+      bash -c "
+        apt-get -y update &&
+        apt-get -y install curl &&
+        curl -u admin:admin -X POST 'http://sonarqube:9000/api/users/change_password?login=admin&previousPassword=admin&password=admin@1234' 
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/create?name=magic' 
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/set_as_default?name=magic' 
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/create_condition?gateName=magic&error=80&op=LT&metric=coverage' 
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/create_condition?gateName=magic&error=4&op=GT&metric=duplicated_lines_density'
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/create_condition?gateName=magic&op=LT&error=80&metric=line_coverage'
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/create_condition?gateName=magic&op=GT&error=1&metric=security_rating'
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/create_condition?gateName=magic&op=GT&error=1&metric=sqale_rating'
+        && curl -u admin:admin@1234 -X POST 'http://sonarqube:9000/api/qualitygates/create_condition?gateName=magic&op=GT&error=1&metric=reliability_rating'
+      "
+    networks:
+      - net
+
+networks:
+  net:
+    name: net

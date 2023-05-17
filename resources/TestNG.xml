@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="API_Testing_Automation" >
+    <listeners>
+        <listener class-name="com.india.apitest.listeners.TestStatusListener"/>
+        <listener class-name="com.india.apitest.listeners.AnnotationTransformer"/>
+    </listeners>
+    <test name="APITest">
+        <classes>
+            <class name="com.india.apitest.businessLogics.BusinessTest"/>
+        </classes>
+    </test>
+</suite>
